@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function SignInForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cfmpassword, setCfmPassword] = useState("");
 
   const handleUsernameChange = (evt) => {
     setUsername(evt.target.value);
@@ -11,27 +12,34 @@ function SignInForm(props) {
   const handlePasswordChange = (evt) => {
     setPassword(evt.target.value);
   };
+  const handleCfmPasswordChange = (evt) => {
+    setCfmPassword(evt.target.value);
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    fetch(`http://localhost:3000/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        localStorage.setItem("token", data.jwt);
-        props.handleLogin(data.user);
-      });
-    setUsername("");
-    setPassword("");
+    if (password !== cfmpassword) {
+      alert("passwords do not match!");
+    } else {
+      fetch(`http://localhost:3000/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          localStorage.setItem("token", data.jwt);
+          props.handleLogin(data.user);
+        });
+      setUsername("");
+      setPassword("");
+    }
   };
   const formDivStyle = {
     margin: "auto",
@@ -59,6 +67,15 @@ function SignInForm(props) {
             onChange={handlePasswordChange}
             type="password"
             placeholder="password"
+          />
+        </div>
+        <div className="field">
+          <label>Confirm Password</label>
+          <input
+            value={cfmpassword}
+            onChange={handleCfmPasswordChange}
+            type="password"
+            placeholder="Confirm password"
           />
         </div>
 

@@ -3,6 +3,8 @@ import "./App.css";
 import Header from "./Header";
 import SignInForm from "./SignInForm";
 import LoginForm from "./LoginForm";
+import ButtonAppBar from "./Navbar";
+import TodoList from "./TodoList";
 
 function App() {
   const [user, setUser] = useState({});
@@ -19,7 +21,6 @@ function App() {
         .then((resp) => resp.json())
         .then((data) => {
           setUser(data);
-          // console.log(data)
         });
     }
   }, []);
@@ -47,27 +48,25 @@ function App() {
     setUser({});
     localStorage.removeItem("token");
   };
-  console.log(user);
 
   const renderForm = () => {
     switch (form) {
-      case "login":
-        return <LoginForm handleLogin={handleLogin} />;
+      case "signUp":
+        return <SignInForm handleLogin={handleLogin} />;
         break;
       default:
-        return <SignInForm handleLogin={handleLogin} />;
+        return <LoginForm handleLogin={handleLogin} />;
     }
   };
   return (
-    <div className="App">
-      <Header handleFormSwitch={handleFormSwitch} />
+    <div>
+      <ButtonAppBar
+        handleFormSwitch={handleFormSwitch}
+        handleLogout={handleLogout}
+      />
       {renderForm()}
-      <button onClick={handleAuthClick} className="ui button">
-        Access Authorized Route
-      </button>
-      <button onClick={handleLogout} className="ui button">
-        Logout
-      </button>
+      <button onClick={handleAuthClick}>Access Authorized Route</button>
+      <TodoList />
     </div>
   );
 }

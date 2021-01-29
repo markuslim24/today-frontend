@@ -41,7 +41,7 @@ function LoginForm(props) {
   return (
     <div>
       <div style={formDivStyle}>
-        <h1>Log In</h1>
+        <h1>Login</h1>
         <form class="ui form" onSubmit={handleSubmit}>
           <div class="field">
             <label>Username</label>

@@ -7,7 +7,7 @@ const headerStyle = {
 };
 function Header(props) {
   return (
-    <div style={headerStyle}>
+    <div className="App-header">
       <h1 style={{ color: "white" }}>JWT Auth Setup</h1>
       <button
         className="ui button"
