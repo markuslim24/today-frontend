@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from "react";
 import update from "immutability-helper";
 import TodoItem from "./TodoItem";
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(4),
+    width: "100%",
+    maxWidth: 720,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: "10px",
+  },
+  input: {
+    width: "100%",
+  },
+}));
 
 function TodoList(props) {
+  const classes = useStyles();
   const [todoInput, setTodoInput] = useState("");
   const [todos, setTodos] = useState([]);
 
@@ -76,34 +95,32 @@ function TodoList(props) {
   };
 
   return (
-    <div>
-      <div className="inputContainer">
-        <input
-          value={todoInput}
-          onChange={handleTodoInputChange}
-          className="taskInput"
-          type="text"
-          placeholder="Add a task"
-          maxLength="50"
-          onKeyPress={createTodo}
-        />
-      </div>
-      <div className="listWrapper">
-        <ul className="taskList">
-          {todos.map((todo) => {
-            return (
-              <TodoItem
-                key={todo.id}
-                todo={todo}
-                handleTodoCheck={handleTodoCheck}
-                handleTodoEdit={handleTodoEdit}
-                handleTodoDelete={handleTodoDelete}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    </div>
+    <Container maxWidth="xl">
+      <List className={classes.root}>
+        <ListItem>
+          <TextField
+            className={classes.input}
+            value={todoInput}
+            onChange={handleTodoInputChange}
+            type="text"
+            placeholder="Add a task"
+            maxLength="50"
+            onKeyPress={createTodo}
+          />
+        </ListItem>
+        {todos.map((todo) => {
+          return (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              handleTodoCheck={handleTodoCheck}
+              handleTodoEdit={handleTodoEdit}
+              handleTodoDelete={handleTodoDelete}
+            />
+          );
+        })}
+      </List>
+    </Container>
   );
 }
 

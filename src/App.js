@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import SignInForm from "./SignInForm";
-import LoginForm from "./LoginForm";
-import ButtonAppBar from "./Navbar";
-import TodoList from "./TodoList";
+import React, { useState, useEffect, Fragment } from "react";
+import "./css/App.css";
+import SignInForm from "./Components/SignInForm";
+import LoginForm from "./Components/LoginForm";
+import ButtonAppBar from "./Components/Navbar";
+import TodoList from "./Components/TodoList";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
@@ -26,15 +22,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles({
-  App: {
-    justify: "center",
-    margin: "auto",
-  },
-});
-
 function App() {
-  const classes = useStyles();
   const [user, setUser] = useState({});
   const [form, setForm] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -103,9 +91,15 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ButtonAppBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-      {isLoggedIn ? <TodoList /> : renderForm()}
-      <button onClick={handleAuthClick}>Access Authorized Route</button>
+      {isLoggedIn ? (
+        <Fragment>
+          <ButtonAppBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+          <TodoList />
+        </Fragment>
+      ) : (
+        renderForm()
+      )}
+      {/* <button onClick={handleAuthClick}>Access Authorized Route</button> */}
     </ThemeProvider>
   );
 }

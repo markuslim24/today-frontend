@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,10 +71,16 @@ function LoginForm(props) {
   return (
     <Container maxWidth="xs">
       <div className={classes.root}>
-        <Typography variant="h1" align="center">
-          Today.
-        </Typography>
-
+        <Fade in={true} timeout={1500}>
+          <Typography variant="h1" align="center">
+            Today.
+          </Typography>
+        </Fade>
+        <Fade in={true} timeout={1500}>
+          <Typography variant="p" align="center">
+            A minimalistic Todo List App
+          </Typography>
+        </Fade>
         <form className={classes.form} onSubmit={handleSubmit}>
           {isAlert ? (
             <Alert

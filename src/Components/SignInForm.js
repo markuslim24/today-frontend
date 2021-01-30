@@ -66,11 +66,6 @@ function SignInForm(props) {
       setPassword("");
     }
   };
-  const formDivStyle = {
-    margin: "auto",
-    padding: "20px",
-    width: "80%",
-  };
 
   return (
     <Container maxWidth="xs">
