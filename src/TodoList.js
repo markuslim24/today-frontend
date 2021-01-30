@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import update from "immutability-helper";
+import TodoItem from "./TodoItem";
 
 function TodoList(props) {
   const [todoInput, setTodoInput] = useState("");
@@ -22,6 +23,9 @@ function TodoList(props) {
           setTodos(data);
         });
     }
+  };
+  const handleTodoInputChange = (e) => {
+    setTodoInput(e.target.value);
   };
 
   const createTodo = (e) => {
@@ -47,47 +51,28 @@ function TodoList(props) {
     }
   };
 
-  const handleTodoInputChange = (e) => {
-    setTodoInput(e.target.value);
-  };
-
-  const updateTodo = (e, id) => {
-    const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ todo: { done: e.target.checked } }),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        const todoIndex = todos.findIndex((x) => x.id === data.id);
-        const todostmp = update(todos, {
-          [todoIndex]: { $set: data },
-        });
-        setTodos(todostmp);
-      });
-  };
-
-  const deleteTodo = (id) => {
-    const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    }).then((data) => {
-      const todoIndex = todos.findIndex((x) => x.id === id);
-      const todostmp = update(todos, {
-        $splice: [[todoIndex, 1]],
-      });
-      setTodos(todostmp);
+  const handleTodoCheck = (data) => {
+    const todoIndex = todos.findIndex((x) => x.id === data.id);
+    const todostmp = update(todos, {
+      [todoIndex]: { $set: data },
     });
+    setTodos(todostmp);
+  };
+
+  const handleTodoEdit = (data) => {
+    const todoIndex = todos.findIndex((x) => x.id === data.id);
+    const todostmp = update(todos, {
+      [todoIndex]: { $set: data },
+    });
+    setTodos(todostmp);
+  };
+
+  const handleTodoDelete = (id) => {
+    const todoIndex = todos.findIndex((x) => x.id === id);
+    const todostmp = update(todos, {
+      $splice: [[todoIndex, 1]],
+    });
+    setTodos(todostmp);
   };
 
   return (
@@ -107,21 +92,13 @@ function TodoList(props) {
         <ul className="taskList">
           {todos.map((todo) => {
             return (
-              <li className="task" todo={todo} key={todo.id}>
-                <input
-                  className="taskCheckbox"
-                  type="checkbox"
-                  checked={todo.done}
-                  onChange={(e) => updateTodo(e, todo.id)}
-                />
-                <label className="taskLabel">{todo.title}</label>
-                <span
-                  className="deleteTaskBtn"
-                  onClick={(e) => deleteTodo(todo.id)}
-                >
-                  | x
-                </span>
-              </li>
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                handleTodoCheck={handleTodoCheck}
+                handleTodoEdit={handleTodoEdit}
+                handleTodoDelete={handleTodoDelete}
+              />
             );
           })}
         </ul>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -22,9 +22,19 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar(props) {
   const classes = useStyles();
 
+  const renderAuthButton = () => {
+    if (props.isLoggedIn) {
+      return (
+        <Button color="inherit" onClick={() => props.handleLogout()}>
+          Logout
+        </Button>
+      );
+    }
+  };
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <IconButton
             edge="start"
@@ -37,21 +47,7 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" className={classes.title}>
             Today
           </Typography>
-          <Button
-            color="inherit"
-            onClick={() => props.handleFormSwitch("login")}
-          >
-            Login
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => props.handleFormSwitch("signUp")}
-          >
-            Signup
-          </Button>
-          <Button color="inherit" onClick={() => props.handleLogout()}>
-            Logout
-          </Button>
+          {renderAuthButton()}
         </Toolbar>
       </AppBar>
     </div>
