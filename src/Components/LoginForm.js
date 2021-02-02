@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
 import Fade from "@material-ui/core/Fade";
+import { API_ROOT } from "../apiRoot";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +46,7 @@ function LoginForm(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    fetch(`/login`, {
+    fetch(`${API_ROOT}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,13 +7,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
+import { API_ROOT } from "../apiRoot";
 
 function TodoItem(props) {
   const { todo, handleTodoCheck, handleTodoEdit, handleTodoDelete } = props;
 
   const todoCheck = (e, id) => {
     const token = localStorage.getItem("token");
-    fetch(`/api/v1/todos/${id}`, {
+    fetch(`${API_ROOT}/api/v1/todos/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ function TodoItem(props) {
 
   const todoDelete = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`/api/v1/todos/${id}`, {
+    fetch(`${API_ROOT}/api/v1/todos/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

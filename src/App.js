@@ -5,6 +5,7 @@ import LoginForm from "./Components/LoginForm";
 import ButtonAppBar from "./Components/Navbar";
 import TodoList from "./Components/TodoList";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { API_ROOT } from "./apiRoot";
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
@@ -30,7 +31,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`/auto_login`, {
+      fetch(`${API_ROOT}/auto_login`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +55,7 @@ function App() {
 
   const handleAuthClick = () => {
     const token = localStorage.getItem("token");
-    fetch(`/user_is_authed`, {
+    fetch(`${API_ROOT}/user_is_authed`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

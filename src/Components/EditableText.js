@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { API_ROOT } from "../apiRoot";
 
 const useStyles = makeStyles((theme) => ({
   ListItemText: {
@@ -21,7 +22,7 @@ function EditableText(props) {
 
   const handleBlur = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`/api/v1/todos/${id}`, {
+    fetch(`${API_ROOT}/api/v1/todos/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
