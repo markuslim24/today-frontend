@@ -32,7 +32,7 @@ function TodoList(props) {
   const getTodos = () => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/api/v1/todos`, {
+      fetch(`/api/v1/todos`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +50,7 @@ function TodoList(props) {
   const createTodo = (e) => {
     const token = localStorage.getItem("token");
     if (e.key === "Enter") {
-      fetch(`http://localhost:3000/api/v1/todos`, {
+      fetch(`/api/v1/todos`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

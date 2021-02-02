@@ -46,7 +46,7 @@ function SignInForm(props) {
     if (password !== cfmpassword) {
       alert("passwords do not match!");
     } else {
-      fetch(`http://localhost:3000/users`, {
+      fetch(`/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

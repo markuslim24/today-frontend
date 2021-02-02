@@ -45,7 +45,7 @@ function LoginForm(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    fetch(`http://localhost:3000/login`, {
+    fetch(`/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

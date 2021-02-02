@@ -21,7 +21,7 @@ function EditableText(props) {
 
   const handleBlur = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+    fetch(`/api/v1/todos/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

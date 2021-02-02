@@ -13,7 +13,7 @@ function TodoItem(props) {
 
   const todoCheck = (e, id) => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+    fetch(`/api/v1/todos/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ function TodoItem(props) {
 
   const todoDelete = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+    fetch(`/api/v1/todos/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
