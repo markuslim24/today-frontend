@@ -85,7 +85,6 @@ function SignInForm(props) {
             type="text"
             name="username"
             autoComplete="username"
-            autoFocus
             value={username}
             onChange={handleUsernameChange}
           />
